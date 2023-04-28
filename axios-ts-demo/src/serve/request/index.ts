@@ -31,15 +31,27 @@ class AxiosRequest {
     this.instance.interceptors.response.use(
       config.interceptors?.requestSuccessFn,
       config.interceptors?.requestFailureFn
-    )
+    );
     this.instance.interceptors.response.use(
       config.interceptors?.responseSuccessFn,
       config.interceptors?.responseFailureFn
-    )
+    );
   }
 
   request(config: any) {
-    return this.instance.request(config);
+    if (config.interceptors?.requestSuccessFn) {
+      config = config.interceptors.requestSuccessFn(config);
+    }
+    return new Promise((resolve, reject) => {
+      this.instance.request(config).then((res) => {
+        if (config.interceptors?.responseSuccessFn) {
+          res = config.interceptors.responseSuccessFn(res)
+        }
+        resolve(res)
+      }).catch(err=>{
+        reject(err)
+      });
+    });
   }
 
   get(config: any) {
