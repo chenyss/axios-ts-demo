@@ -27,6 +27,15 @@ class AxiosRequest {
         return err;
       }
     );
+
+    this.instance.interceptors.response.use(
+      config.interceptors?.requestSuccessFn,
+      config.interceptors?.requestFailureFn
+    )
+    this.instance.interceptors.response.use(
+      config.interceptors?.responseSuccessFn,
+      config.interceptors?.responseFailureFn
+    )
   }
 
   request(config: any) {
