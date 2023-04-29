@@ -5,7 +5,7 @@ const axiosRequest = new AxiosRequest({
   baseURL: BASE_URL,
   timeout: TIME_OUT,
 })
-
+//在config属性上添加自定义的拦截器属性interceptors
 export const axiosRequest2 = new AxiosRequest({
   baseURL: BASE_URL,
   timeout: TIME_OUT,

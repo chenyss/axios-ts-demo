@@ -2,7 +2,7 @@
 import { getTestData } from '@/serve/module/home';
 import { onMounted } from 'vue';
  onMounted(async()=>{
-   const {data} = await getTestData()
+   const data = await getTestData()
    console.log(data);  
  })
 </script>
